@@ -171,6 +171,8 @@ const modules = [
 
 const state = {
   player: JSON.parse(localStorage.getItem("zorroPlayer") || "null"),
+  // 👇 Nueva propiedad para guardar el historial completo de todos los usuarios
+  history: JSON.parse(localStorage.getItem("zorroHistory") || "[]"),
   activeModule: null,
   questionIndex: 0,
   score: 0,
@@ -262,11 +264,25 @@ function handleLogin(event) {
   event.preventDefault();
   audio.click();
   const form = new FormData(event.currentTarget);
+  
   state.player = {
     name: String(form.get("playerName")).trim(),
     age: Number(form.get("playerAge")),
   };
+  
+  // Guardar sesión actual
   localStorage.setItem("zorroPlayer", JSON.stringify(state.player));
+  
+  // 👇 NUEVO: Registrar esta nueva entrada en el historial de logs con fecha exacta
+  const newLog = {
+    fecha: new Date().toLocaleString("es-EC"), // Formato de hora de Ecuador
+    nombre: state.player.name,
+    edad: state.player.age
+  };
+  
+  state.history.push(newLog);
+  localStorage.setItem("zorroHistory", JSON.stringify(state.history));
+  
   updateWelcome();
   showPanel("menu");
 }
@@ -588,3 +604,45 @@ function nudge(message, happy) {
 }
 
 init();
+
+
+
+
+// Función para descargar el archivo de Logs de Jugadores
+function descargarLogsZorro() {
+  const historial = JSON.parse(localStorage.getItem("zorroHistory") || "[]");
+  
+  if (historial.length === 0) {
+    alert("Aún no hay registros de jugadores en este navegador.");
+    return;
+  }
+  
+  // Estructurar el contenido del archivo de texto
+  let contenidoTxt = "=========================================\n";
+  contenidoTxt += "    LOGS DE JUGADORES - ZORRO TRIVIA     \n";
+  contenidoTxt += "=========================================\n\n";
+  
+  historial.forEach((log, index) => {
+    contenidoTxt += `[Registro #${index + 1}]\n`;
+    contenidoTxt += `Fecha/Hora: ${log.fecha}\n`;
+    contenidoTxt += `Nombre:     ${log.nombre}\n`;
+    contenidoTxt += `Edad:       ${log.edad} años\n`;
+    contenidoTxt += "-----------------------------------------\n";
+  });
+  
+  // Crear un blob de texto y simular la descarga automática
+  const blob = new Blob([contenidoTxt], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const dataLink = document.createElement("a");
+  dataLink.href = url;
+  dataLink.download = `Zorro_Trivia_Logs_${new Date().toISOString().slice(0,10)}.txt`;
+  
+  document.body.appendChild(dataLink);
+  dataLink.click();
+  document.body.removeChild(dataLink);
+  URL.revokeObjectURL(url);
+}
+
+// 💡 Puedes ejecutar 'descargarLogsZorro()' desde la consola de desarrollo de tu navegador (F12) 
+// o vincularlo a un botón secreto en tu interfaz.
+window.descargarLogsZorro = descargarLogsZorro;
