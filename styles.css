@@ -669,3 +669,43 @@ h1 {
     flex-direction: column;
   }
 }
+
+
+.game-footer {
+    background-color: #2C3E50; /* Azul oscuro profundo de contraste */
+    color: #FAF8F5;
+    text-align: center;
+    padding: 20px 15px;
+    font-family: sans-serif;
+    font-size: 13px;
+    border-top: 4px solid #E67E22; /* Línea naranja característica del zorro */
+    margin-top: auto;
+}
+
+.footer-content p {
+    margin: 5px 0;
+    opacity: 0.9;
+}
+
+.footer-content span {
+    color: #E67E22;
+    font-weight: bold;
+}
+
+.footer-contact {
+    display: inline-block;
+    margin-top: 8px;
+    color: #FAF8F5;
+    text-decoration: none;
+    background-color: rgba(230, 126, 34, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    border: 1px solid rgba(230, 126, 34, 0.4);
+}
+
+.footer-contact:hover {
+    background-color: #E67E22;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+}
