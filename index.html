@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zorro Trivia</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell" aria-live="polite">
+      <section id="login-panel" class="screen screen--login">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="fox-face">🦊</span>
+        </div>
+        <div class="intro-copy">
+          <p class="eyebrow">Zorro Trivia</p>
+          <h1>Aprende jugando con tu guía curioso</h1>
+          <p>Elige una aventura, resuelve retos y gana gemas mientras practicas conceptos nuevos.</p>
+        </div>
+        <form id="login-form" class="login-form">
+          <label for="player-name">Nombres</label>
+          <input id="player-name" name="playerName" type="text" minlength="2" maxlength="32" autocomplete="name" required placeholder="Tu nombre">
+          <label for="player-age">Edad</label>
+          <input id="player-age" name="playerAge" type="number" min="5" max="99" required placeholder="12">
+          <button class="primary-action" type="submit">¡Comenzar Aventura! 🚀</button>
+        </form>
+      </section>
+
+      <section id="menu-panel" class="screen hidden">
+        <header class="menu-header">
+          <button id="reset-profile" class="icon-button" type="button" aria-label="Cambiar jugador" title="Cambiar jugador">↩</button>
+          <div>
+            <p class="eyebrow">Menú principal</p>
+            <h2 id="welcome-title">¡Hola! Listo para aprender con 🦊</h2>
+          </div>
+        </header>
+        <div id="module-grid" class="module-grid"></div>
+      </section>
+
+      <section id="game-panel" class="screen screen--game hidden">
+        <header class="status-bar">
+          <button id="back-menu" class="icon-button" type="button" aria-label="Volver al menú" title="Volver al menú">←</button>
+          <div class="progress-wrap" aria-label="Progreso del módulo">
+            <span id="progress-fill" class="progress-fill"></span>
+          </div>
+          <div class="stat" title="Puntuación"><span aria-hidden="true">◆</span><strong id="score-value">0</strong></div>
+          <div class="stat" title="Nivel"><span aria-hidden="true">★</span><strong id="level-value">1</strong></div>
+          <div id="life-bar" class="life-bar" aria-label="Vidas"></div>
+          <button id="joker-button" class="joker-button" type="button">🃏</button>
+        </header>
+
+        <div class="game-stage">
+          <aside id="fox-guide" class="fox-guide">
+            <div class="fox-avatar" aria-hidden="true">🦊</div>
+            <p id="fox-message" class="speech">Selecciona la respuesta correcta.</p>
+          </aside>
+          <section class="challenge-area">
+            <div class="challenge-topline">
+              <p id="module-name" class="eyebrow">Módulo</p>
+              <p id="question-counter" class="question-counter">1 / 5</p>
+            </div>
+            <h2 id="question-title" class="question-title">Pregunta</h2>
+            <div id="question-body" class="question-body"></div>
+            <div class="challenge-actions">
+              <button id="check-button" class="primary-action" type="button">Comprobar</button>
+              <button id="next-button" class="secondary-action hidden" type="button">Continuar</button>
+            </div>
+            <p id="feedback-text" class="feedback-text"></p>
+          </section>
+        </div>
+      </section>
+
+      <section id="result-panel" class="screen screen--result hidden">
+        <div id="result-burst" class="result-burst" aria-hidden="true">✦</div>
+        <div class="result-fox" aria-hidden="true">🦊</div>
+        <p id="result-kicker" class="eyebrow">Aventura completada</p>
+        <h2 id="result-title">¡Excelente!</h2>
+        <p id="result-summary">Terminaste el módulo.</p>
+        <div class="result-actions">
+          <button id="retry-module" class="secondary-action" type="button">Reintentar</button>
+          <button id="choose-module" class="primary-action" type="button">Elegir otro módulo</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
